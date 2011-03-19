@@ -1,0 +1,82 @@
+% Created 2011-03-19 Sat 00:24
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\usepackage{color}
+\usepackage{listings}
+\input{examformat}
+\providecommand{\alert}[1]{\textbf{#1}}
+
+\title{\large STAT 1234 | SOME STATISTICS CLASS | SPRING 2011 | KERNS}
+%\author{G. Jay Kerns}
+\date{Sample Quiz Template}
+
+\begin{document}
+
+\maketitle
+
+
+
+\begin{flushright}
+Name: \underbar{\makebox[2in]{}}
+\par
+\end{flushright}
+\vspace{0.1in}
+
+\noindent \textbf{Directions:\footnote{more questions on the back. }}   SHOW ALL WORK. You may use \textsf{R} for computations, but no other software (and in particular, not the Internet). If you use \textsf{R} to calculate something, then hand write the \textsf{R} code that you typed, together with the numerical answer.
+
+
+
+\section{The following table categorizes a group of people based on the flavor of Kool-Aid they drink and whether or not they like President Barack Obama.}
+\label{sec-1}
+
+
+
+
+\begin{center}
+\begin{tabular}{lllll}
+                              &  \texttt{grape}  &  \texttt{orange}  &  \texttt{cherry}  &  Total         \\
+\hline
+ \texttt{likes Obama}         &  \texttt{92}     &                   &  \texttt{29}      &  \texttt{214}  \\
+ \texttt{doesn't like Obama}  &                  &  \texttt{64}      &                   &                \\
+\hline
+ Total                        &  \texttt{176}    &                   &                   &  \texttt{413}  \\
+\end{tabular}
+\end{center}
+
+
+
+Our experiment will be to select one (1) person from the table out of the  413 people, at random.  
+\subsection{Fill in the table.}
+\label{sec-1_1}
+\subsection{What is the probability that the person likes  cherry Kool-Aid?}
+\label{sec-1_2}
+\subsection{What is the conditional probability that the person likes  grape Kool-Aid, given that the person  doesn't like Obama?}
+\label{sec-1_3}
+\section{We would like to feed baby ``Aidan''. At the dinner table, we get a spoon of food and make an airplane \emph{swoop} as we move the spoon toward his mouth.}
+\label{sec-2}
+
+
+
+Calling the event \( E=\left\{ \mbox{take a bite}\right\} \) a ``success'', it has been determined by experimentation that on any given airplane swoop, the probability of success is \(p \approx  0.39\). Suppose that Aidan is in the high chair. Let $Y$ denote the number of failed swoops (\(E^{c}=\left\{ \mbox{no bite}\right\}\)) before the first  6 successful bites.
+\subsection{If the successive swoops were to constitute independent Bernoulli trials, what would be the distribution of \(Y\)? You should write the family name of the distribution and numerical value(s) of any parameter(s).}
+\label{sec-2_1}
+\subsection{Sketch the probability mass function of $Y$ (roughly). It does not have to be exact, but it should have the right support, be centered in the right place, and have the correct basic spread and shape.}
+\label{sec-2_2}
+\subsection{Find the mean and variance of $Y$, denoted $\E Y$ and $\mathrm{Var}(Y)$, by any method you like.}
+\label{sec-2_3}
+
+\end{document}
