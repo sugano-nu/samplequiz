@@ -4,7 +4,7 @@
 #+DATE:      \vspace{-0.5in}Sample Quiz Template
 #+LANGUAGE:  en
 #+OPTIONS:   toc:nil ^:nil author:nil tags:nil
-#+EXCLUDE_TAGS: answers
+#+EXCLUDE_TAGS: space
 #+PROPERTY: session *R*
 #+PROPERTY: exports results
 #+PROPERTY: results raw
@@ -214,6 +214,7 @@ plot(Y, to.draw.arg = "d")
 
 #+NAME: fig-pmf
 #+CAPTION: Plot of the probability mass function
+#+ATTR_LaTeX: :width 6cm
 #+RESULTS: pmf
 [[file:plotpmf.pdf]]
 
