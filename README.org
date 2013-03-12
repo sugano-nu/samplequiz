@@ -1,39 +1,43 @@
-#+TITLE:     Writing Exams/Quizzes with Org-Mode
+#+TITLE:     Writing Quizzes/Exams with Org-Mode
 #+AUTHOR:    G. Jay Kerns
 #+EMAIL:     gkerns@ysu.edu
-#+DATE:      2011-03-18 Fri
-#+LANGUAGE:  en
-#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:{} -:nil f:t *:t <:t email:t
-#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+DATE:      2013-03-11 Mon
 
 * What you need
-- a version of =R=, plus the =R= package =distrEx= (and its dependencies) for this particular quiz.
-- a suitably recent version of [[http://www.gnu.org/software/emacs/][GNU Emacs]] (I'm running version 23.1.1).
-- a suitably recent version of [[http://orgmode.org/][Org-Mode]] (I'm running version 7.5.74).
-- Org-mode configured suitably.  Have a look at =dotemacs.el= for the relevant parts of my =.emacs=. 
+- a suitably recent version of [[http://orgmode.org/][Org-Mode]] (I'm running version 8.0-pre).
+- a suitably recent version of [[http://www.gnu.org/software/emacs/][GNU Emacs]] (I'm running version
+  24.3.50.1).
+- a version of [[http://www.r-project.org][R]] plus the R package [[http://cran.r-project.org/web/packages/distrEx/index.html][distrEx]] (and its dependencies) for
+  this particular quiz.
+- Org-mode configured suitably.  Have a look at =dotemacs.el= for the
+  relevant parts of my =.emacs=.
 - the file =samplequiz.org= somewhere you can find it.
-- the file =examformat.tex= in the same place as =samplequiz.org=.  Alternatively, you can insert each of the lines of =examformat.tex= at the top of the =.org= file, like this:
-  : #+LATEX_HEADER: \usepackage[letterpaper]{geometry}
+- the file =examformat.tex= in the same place as =samplequiz.org=.
+  Alternatively, you can insert each of the lines of =examformat.tex=
+  at the top of the =.org= file, like this:
+  : #+LATEX_HEADER: \usepackage[letterpaper, margin=1in]{geometry}
   and so forth.
 
 * What you can do
-
 If you would like to 
-
-- generate the exam (without answers), do
-  : C-c C-e d
-
-- generate the exam (with answers), first delete the line
-  : #+EXPORT_EXCLUDE_TAGS: answer
-  then do
-  : C-c C-e d
-  /Note:/ sometimes it takes a couple runs to get everything.
+- generate the quiz (without answers), open the file and do
+  : C-c C-e l o
+- generate the quiz (with answers), first change the line
+  : #+EXCLUDE_TAGS: answer
+  to the following
+  : #+EXCLUDE_TAGS: space
+  then put point up at the top of the file and do
+  : C-c C-c
+  (this refreshes the local setup) then do
+  : C-c C-e l o
 - tangle (most of) the R code, do
   : C-c C-v t
-
-- run the code interactively, put point somewhere in a code block (which starts with =#+begin_src R=) and do
+- run the code interactively, put point somewhere in a code block
+  (which starts with =#+BEGIN_SRC R=) and do
   : C-c C-c
-
-- export the exam (with answers or not) to HTML (yes, that's right, HTML) then do
-  : C-c C-e b
-  /Note:/ a few spots of this particular quiz don't show up very well in HTML. But, as you will see, a quiz that was even a little bit simpler than this one would show up just fine.  The tricky part is the substituted code that students type, currently typeset with a custom =studinpt= environment.
+- export the exam (with answers or not) to HTML (yes, that's right,
+  HTML) then do
+  : C-c C-e h h
+  /Note:/ a few spots of this particular quiz don't show up very well
+  in HTML. But, as you will see, a quiz that was even a little bit
+  simpler than this one would show up just fine.

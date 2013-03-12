@@ -1,20 +1,14 @@
 % examformat.tex
-% set up page formatting for exams/quizzes
+% setup page formatting for exams/quizzes
 
 % page margins
-\usepackage[letterpaper]{geometry}
-\geometry{verbose, tmargin = 1in, bmargin = 1in, lmargin = 1in, rmargin = 1in}
+\usepackage[letterpaper, margin = 1in]{geometry}
 
 % format headings for questions/answers
 \usepackage{titlesec}
-\titleformat{\section}[runin]{\normalfont}{\bfseries\arabic{section}.}{.5em}{}[\quad]
-\titleformat{\subsection}[block]{\normalfont}{\bfseries\alph{subsection})}{.5em}{}[\quad]
-\titleformat{\subsubsection}[block]{\normalfont}{}{}{}[\quad]
-
-% typeset student entered R code
-\newenvironment{studinpt}
-  {\begin{minipage}{\textwidth}\ttfamily}
-  {\end{minipage}}
+\titleformat{\section}[runin]{\normalfont}{\bfseries\arabic{section}.}{.5em}{}[]
+\titleformat{\subsection}[block]{\normalfont}{\bfseries\alph{subsection})}{.5em}{}[]
+\titleformat{\subsubsection}[block]{\normalfont}{}{.5em}{}[\vspace{-1em}]
 
 % extra math commands
 \newcommand{\E}{\mathrm{I\! E}}

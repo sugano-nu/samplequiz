@@ -1,33 +1,38 @@
-#+TITLE:   \large STAT 1234 | SOME STATISTICS CLASS | SPRING 2011 | KERNS
+#+TITLE:   \vspace{-0.5in}\large STAT 1234 | SOME STATISTICS CLASS | SPRING 2013 | KERNS
 #+AUTHOR:    G. Jay Kerns
 #+EMAIL:     gkerns@ysu.edu
-#+DATE:      Sample Quiz Template
+#+DATE:      \vspace{-0.5in}Sample Quiz Template
 #+LANGUAGE:  en
-#+OPTIONS:   H:4 toc:nil ^:nil author:nil
-#+EXPORT_EXCLUDE_TAGS: answer
-#+BABEL: :session *R* :results raw
+#+OPTIONS:   toc:nil ^:nil author:nil tags:nil
+#+EXCLUDE_TAGS: answers
+#+PROPERTY: session *R*
+#+PROPERTY: exports results
+#+PROPERTY: results raw
 #+LaTeX_CLASS_OPTIONS: [11pt]
 #+LATEX_HEADER: \input{examformat}
 
-#+begin_src R :exports none :tangle yes
+#+BEGIN_SRC R :results silent :tangle yes
 set.seed(42)
-#+end_src
+#+END_SRC
 
-#+begin_latex
+#+BEGIN_LaTeX
 \begin{flushright}
 Name: \underbar{\makebox[2in]{}}
 \par
 \end{flushright}
 \vspace{0.1in}
-#+end_latex
+#+END_LaTeX
 
-\noindent *Directions:[fn:1]*   SHOW ALL WORK. You may use \textsf{R} for computations, but no other software (and in particular, not the Internet). If you use \textsf{R} to calculate something, then hand write the \textsf{R} code that you typed, together with the numerical answer.
+\noindent *Directions:[fn:1]* SHOW ALL WORK. You may use =R= for
+computations, but no other software (and in particular, not the
+Internet). If you use =R= to calculate something, then hand-write the
+=R= code that you typed, together with the numerical answer.
 
 [fn:1] more questions on the back.
 
 * The following table categorizes a group of people based on the flavor of Kool-Aid they drink and whether or not they like President Barack Obama.
 
-#+begin_src R :exports none :results output :tangle yes
+#+BEGIN_SRC R :results value :tangle yes :colnames yes :rownames yes
 l <- sample(100, size = 3)
 nl <- sample(100, size = 3)
 A <- matrix(c(l, nl), nrow = 2, byrow = TRUE)
@@ -35,97 +40,181 @@ colnms <- c("grape", "orange", "cherry")
 rownms <- c("likes Obama", "doesn't like Obama")
 cindx <- sample(3, size = 2, replace = TRUE)
 rindx <- sample(2, size = 2, replace = TRUE)
-#+end_src
+B <- data.frame(addmargins(A))
+names(B) <- c(colnms, "Total")
+rownames(B) <- c(rownms, "Total")
+B
+#+END_SRC
 
-  |                                     | SRC_R[:results scalar]{colnms[1]}      | SRC_R[:results scalar]{ colnms[2] } | SRC_R[:results scalar]{ colnms[3] } | Total                                  |
-  |-------------------------------------+----------------------------------------+-------------------------------------+-------------------------------------+----------------------------------------|
-  | SRC_R[:results scalar]{ rownms[1] } | SRC_R[:results scalar]{ A[ 1,1 ] }     |                                     | SRC_R[:results scalar]{ A[ 1,3 ] }  | SRC_R[:results scalar]{ sum(A[ 1, ]) } |
-  | SRC_R[:results scalar]{ rownms[2] } |                                        | SRC_R[:results scalar]{ A[ 2,2 ] }  |                                     |                                        |
-  |-------------------------------------+----------------------------------------+-------------------------------------+-------------------------------------+----------------------------------------|
-  | Total                               | SRC_R[:results scalar]{ sum(A[ ,1 ]) } |                                     |                                     | SRC_R[:results scalar]{ sum(A) }       |
+Our experiment will be to select one (1) person from the table out
+of the SRC_R{sum(A)} people, at random.
 
-Our experiment will be to select one (1) person from the table out of the SRC_R{ sum(A) } people, at random.  
+** What is the probability that the selected person likes SRC_R{colnms[cindx[1]]} Kool-Aid?
+*** 								      :space:
+\vspace{0.5in}
 
+*** 								    :answers:
+#+LaTeX: \begin{quote}
+Since all outcomes are equally likely, the marginal probability that
+the person likes SRC_R{colnms[cindx[1]]} Kool-Aid is just the number
+of people who like SRC_R{colnms[cindx[1]]} Kool-Aid divided by the
+total number of people in the study.  In other words,
 
-** Fill in the table.
+#+NAME: prob-kool
+#+BEGIN_SRC R :results silent
+paste("\\P( \\mbox{",  colnms[cindx[1]], "}) = ",
+      "\\frac{\\mbox{\\#(", colnms[cindx[1]], 
+      ")}}{\\mbox{Total \\# of people}} = \\frac{",
+      sum(A[, cindx[1]]),
+      "}{", sum(A), "}\\approx ",
+      round(sum(A[ ,cindx[1] ])/sum(A), 3), sep = "")
+#+END_SRC
 
-*** 								     :answer:
-The completed table looks like this:
-  
-  |                                     | SRC_R[:results scalar]{colnms[1]}      | SRC_R[:results scalar]{ colnms[2] }    | SRC_R[:results scalar]{ colnms[3] }    | Total                                  |
-  |-------------------------------------+----------------------------------------+----------------------------------------+----------------------------------------+----------------------------------------|
-  | SRC_R[:results scalar]{ rownms[1] } | SRC_R[:results scalar]{ A[ 1,1 ] }     | SRC_R[:results scalar]{ A[ 1,2 ] }     | SRC_R[:results scalar]{ A[ 1,3 ] }     | SRC_R[:results scalar]{ sum(A[ 1, ]) } |
-  | SRC_R[:results scalar]{ rownms[2] } | SRC_R[:results scalar]{ A[ 2,1 ] }     | SRC_R[:results scalar]{ A[ 2,2 ] }     | SRC_R[:results scalar]{ A[ 2,3 ] }     | SRC_R[:results scalar]{ sum(A[ 2, ]) } |
-  |-------------------------------------+----------------------------------------+----------------------------------------+----------------------------------------+----------------------------------------|
-  | Total                               | SRC_R[:results scalar]{ sum(A[ ,1 ]) } | SRC_R[:results scalar]{ sum(A[ ,2 ]) } | SRC_R[:results scalar]{ sum(A[ ,3 ]) } | SRC_R[:results scalar]{ sum(A) }       |
-
-
-** What is the probability that the person likes SRC_R{ colnms[ cindx[1] ] } Kool-Aid?
-
-*** 								     :answer:
+#+BEGIN_SRC latex :exports results :noweb yes
 \[
-\frac{\mbox{\#( SRC_R{ colnms[ cindx[1] ] } )}}{\mbox{Total \# of people}} =
-\frac{ SRC_R{ sum( A[ , cindx[1] ]) } }{ SRC_R{ sum(A) } }\approx SRC_R{ round( sum( A[ , cindx[1] ] )/ sum(A) , 3) }.
+<<prob-kool()>>.
 \]
+#+END_SRC
 
+#+LaTeX: \end{quote}
 
-** What is the conditional probability that the person likes SRC_R{ colnms[ cindx[ 2 ] ] } Kool-Aid, given that the person SRC_R{ rownms[ rindx[ 2 ] ] }?
+** What is the probability that the selected person SRC_R{rownms[rindx[1]]}?
+*** 								      :space:
+\vspace{0.5in}
 
-*** 								     :answer:
+*** 								    :answers:
+#+LaTeX: \begin{quote}
+This problem is just like the last problem, but we are thinking about rows instead of columns. In particular,
+
+#+NAME: prob-like
+#+BEGIN_SRC R :results silent
+paste("\\P( \\mbox{",  rownms[rindx[1]], "}) = ",
+      "\\frac{\\mbox{\\#(", rownms[rindx[1]], 
+      ")}}{\\mbox{Total \\# of people}} = \\frac{",
+      sum(A[rindx[1], ]),
+      "}{", sum(A), "}\\approx ",
+      round(sum(A[rindx[1], ])/sum(A), 3), sep = "")
+#+END_SRC
+
+#+BEGIN_SRC latex :exports results :noweb yes
 \[
-\P( \mbox{ SRC_R{ colnms[ cindx[2] ] } } | \mbox{ SRC_R{ rownms[ rindx[2] ] } } ) =
-\frac{\P( \mbox{ SRC_R{ colnms[ cindx[2] ] } and SRC_R{ rownms[ rindx[2] ] } } )}{\P(\mbox{ SRC_R{ rownms[ rindx[2] ] } } ) } = 
-\frac{ SRC_R{ A[ rindx[2] , cindx[2] ] } }{ SRC_R{  sum(A[ rindx[2], ])  } }
-\approx SRC_R{ round( A[ rindx[2] , cindx[2] ] / sum( A[ rindx[2], ] ), 3) }.
+<<prob-like()>>.
 \]
+#+END_SRC
 
+#+LaTeX: \end{quote}
 
+** What is the conditional probability that the person likes SRC_R{colnms[cindx[2]]} Kool-Aid, given that the person SRC_R{rownms[rindx[2]]}?
+*** 								      :space:
+\vspace{1in}
 
-* We would like to feed baby ``Aidan''. At the dinner table, we get a spoon of food and make an airplane /swoop/ as we move the spoon toward his mouth. 
+*** 								    :answers:
+#+LaTeX: \begin{quote}
+To calculate the conditional probability we restrict attention to the row that contains a person who SRC_R{rownms[rindx[2]]}, and out of those total people calculate the proportion of those who like SRC_R{colnms[cindx[2]]} Kool-Aid, that is,
 
-#+begin_src R :exports none :results output :tangle yes
+#+NAME: cond-prob-kool
+#+BEGIN_SRC R :results silent
+paste("\\P( \\mbox{ ", colnms[cindx[2]],
+      " } \\vert \\mbox{ ", rownms[rindx[2]],
+      " } ) = \\frac{\\P( \\mbox{",
+      colnms[cindx[2]], " and ",
+      rownms[rindx[2]],
+      "} )}{\\P(\\mbox{ ",
+      rownms[rindx[2]],
+      "} ) } = \\frac{",
+      A[rindx[2],cindx[2]], "}{",
+      sum(A[rindx[2], ]), "} \\approx ",
+      round(A[rindx[2],cindx[2]]/sum(A[rindx[2], ]),3),
+      ".", sep = "")
+#+END_SRC
+
+#+BEGIN_SRC latex :exports results :noweb yes
+\[
+<<cond-prob-kool()>>
+\]
+#+END_SRC
+
+#+LaTeX: \end{quote}
+
+* We would like to feed baby "Aidan". At the dinner table, we get a spoon of food and make an airplane /swoop/ as we move the spoon toward his mouth. 
+
+#+BEGIN_SRC R :exports none :tangle yes
 r <- as.double(sample(3:9, size = 1))
 pr <- sample(11:49, size = 1)/100
 disxs <- sort(rnbinom(10, size = r, prob = pr))
-#+end_src
+#+END_SRC
 
-Calling the event \( E=\left\{ \mbox{take a bite}\right\} \) a ``success'', it has been determined by experimentation that on any given airplane swoop, the probability of success is \(p \approx SRC_R{ pr }\). Suppose that Aidan is in the high chair. Let $Y$ denote the number of failed swoops (\(E^{c}=\left\{ \mbox{no bite}\right\}\)) before the first SRC_R{r} successful bites.
+Calling the event \( E = \left\{ \mbox{take a bite}\right\} \) a
+``success'', it has been determined by experimentation that on any
+given airplane swoop, the probability of success is \(p \approx\)
+SRC_R{pr}. Suppose that Aidan is in the high chair. Let \(Y\) denote the
+number of failed swoops (\(E^{c}=\left\{ \mbox{no bite}\right\}\))
+before the first SRC_R{r} successful bites.
 
+** If the successive swoops were to constitute independent Bernoulli trials, what would be the distribution of \(Y\)? You should write the family name of the distribution and numerical value(s) of a(ny) parameter(s).
 
-** If the successive swoops were to constitute independent Bernoulli trials, what would be the distribution of \(Y\)? You should write the family name of the distribution and numerical value(s) of any parameter(s).
+*** 								      :space:
+\vspace{0.5in}
 
-*** 								     :answer:
+*** 								    :answers:
+#+LaTeX: \begin{quote}
+The distribution of \(Y\) is /negative binomial/ with =size= equal to
+SRC_R{r} and =prob= equal to SRC_R{pr}.  The following =R= code will
+suffice to communicate this to the computer.
+ 
+#+NAME: neg-bin
+#+BEGIN_SRC R :results silent
+paste("Y <- Nbinom(size = ", r, ", prob = ", 
+      pr, ")", sep = "") 
+#+END_SRC
 
-\begin{studinpt}
-library(distr)  \\
-Y <- Nbinom(size = SRC_R{r}, prob = SRC_R{pr})
-\end{studinpt}
+#+BEGIN_SRC latex :exports results :noweb yes
+\begin{verbatim}
+library(distr)
+<<neg-bin()>>
+\end{verbatim}
+#+END_SRC
 
-#+begin_src R :exports none :tangle yes
+#+BEGIN_SRC R :exports none :tangle yes
 library(distrEx)
 Y <- Nbinom(size = r, prob = pr)
-#+end_src
+#+END_SRC
 
+#+LaTeX: \end{quote}
 
-** Sketch the probability mass function of $Y$ (roughly). It does not have to be exact, but it should have the right support, be centered in the right place, and have the correct basic spread and shape.
+** Find the mean and variance of \(Y\), denoted \(\E Y\) and \(\mathrm{Var}(Y)\), by any method you like.
+*** 								      :space:
+\vspace{0.5in}
 
+*** 								    :answers:
+#+LaTeX: \begin{quote}
+The mean of the =Nbinom(size = r, prob = p)= distribution is \(r(1 - p)/p\) and the variance is \(r(1 - p)/p^2\).  You can either calculate that by hand or you can use the computer via the =distrEx= package:
 
-*** 								     :answer:
-
-#+CAPTION:    Plot of the probability mass function
-#+LABEL:      fig:yplot
-#+ATTR_LaTeX: width=2in, height=2in, placement=[h!]
-#+begin_src R :exports both :results output graphics :file plotY.png :tangle yes
-plot(Y, to.draw.arg = "d")
-#+end_src
-
-
-** Find the mean and variance of $Y$, denoted $\E Y$ and $\mathrm{Var}(Y)$, by any method you like.
-
-*** 								     :answer:
-
-#+begin_src R :exports both :results output pp :tangle yes
+#+BEGIN_SRC R :exports both :results output pp :tangle yes
 library(distrEx)
 E(Y)
 var(Y)
-#+end_src
+#+END_SRC
+
+#+LaTeX: \end{quote}
+
+** Sketch the probability mass function of \(Y\) (roughly). It does not have to be exact, but it should have the right support, be centered in the right place, and have the correct basic spread and shape.
+
+*** 								      :space:
+\vspace{1in}
+
+*** 								    :answers:
+#+LaTeX: \begin{quote}
+See Figure [[fig-pmf]]; your sketch should look something like that.  The =R= code you can use to make the figure is:
+ 
+#+NAME: pmf
+#+BEGIN_SRC R :exports both :results graphics :file plotpmf.pdf
+plot(Y, to.draw.arg = "d")
+#+END_SRC
+
+#+NAME: fig-pmf
+#+CAPTION: Plot of the probability mass function
+#+RESULTS: pmf
+[[file:plotpmf.pdf]]
+
+#+LaTeX: \end{quote}
